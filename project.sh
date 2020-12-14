@@ -30,7 +30,10 @@ feature_send() {
 }
 
 feature_done() {
-	echo "done feature actions ..."
+	git checkout $BRANCH_DEVELOP
+	git branch -D $BRANCH_CURRENT
+	git push $GIT_REMOTE_NAME  --delete $BRANCH_CURRENT
+	git pull origin $BRANCH_DEVELOP
 }
 
 # main
