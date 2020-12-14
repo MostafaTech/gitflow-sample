@@ -18,7 +18,7 @@ feature_send() {
 		--head $BRANCH_CURRENT \
 		--base $BRANCH_DEVELOP \
 		-t "Merge $BRANCH_CURRENT to $BRANCH_DEVELOP" \
-		--fill --web
+		--web
 }
 
 # main
