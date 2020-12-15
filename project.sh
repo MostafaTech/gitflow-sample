@@ -5,6 +5,14 @@ BRANCH_DEVELOP=develop
 BRANCH_CURRENT=$(git branch --show-current)
 GIT_REMOTE_NAME=origin
 
+branch_pull() {
+	if [[ $1 != '' ]]; then
+		git pull $GIT_REMOTE_NAME $1
+	else
+		git pull $GIT_REMOTE_NAME $BRANCH_CURRENT
+	fi
+}
+
 branch_push() {
 	if [[ $1 != '' ]]; then
 		git push -u $GIT_REMOTE_NAME $1
@@ -33,8 +41,8 @@ feature_send() {
 feature_done() {
 	git checkout $BRANCH_DEVELOP
 	git branch -D $BRANCH_CURRENT
-	git push $GIT_REMOTE_NAME  --delete $BRANCH_CURRENT
-	git pull origin $BRANCH_DEVELOP
+	git push $GIT_REMOTE_NAME --delete $BRANCH_CURRENT
+	branch_pull $BRANCH_DEVELOP
 }
 
 hotfix_start() {
@@ -57,12 +65,13 @@ hotfix_send() {
 hotfix_done() {
 	git checkout $BRANCH_MASTER
 	git branch -D $BRANCH_CURRENT
-	git push $GIT_REMOTE_NAME  --delete $BRANCH_CURRENT
-	git pull origin $BRANCH_MASTER
+	git push $GIT_REMOTE_NAME --delete $BRANCH_CURRENT
+	branch_pull $BRANCH_MASTER
 }
 
 # main
-if [[ $1 == 'push' ]]; then branch_push $2
+if [[ $1 == 'pull' ]]; then branch_pull $2
+elif [[ $1 == 'push' ]]; then branch_push $2
 elif [[ $1 == 'feature-start' ]]; then feature_start $2
 elif [[ $1 == 'feature-send' ]]; then feature_send
 elif [[ $1 == 'feature-done' ]]; then feature_done
