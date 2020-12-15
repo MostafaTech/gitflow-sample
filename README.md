@@ -1,5 +1,5 @@
 # Gitflow Sample
-Version 0.2.0 [12-15-2020 03-30]
+Version 0.3.0 [12-15-2020 13-25]
 
 ## Prerequisites
 * gitflow
